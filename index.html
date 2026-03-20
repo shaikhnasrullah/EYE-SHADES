@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EYE SHADES | Premium Eyewear Mumbai</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --gold: #1a6fd4;
+      --gold-light: #5ba3f5;
+      --gold-dark: #0f4fa8;
+      --dark: #ffffff;
+      --dark2: #f0f4ff;
+      --dark3: #e8eeff;
+      --dark4: #d0dcff;
+      --white: #0a1628;
+      --grey: #6b7a99;
+      --font-display: 'Cormorant Garamond', serif;
+      --font-ui: 'Syne', sans-serif;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--dark);
+      color: var(--white);
+      font-family: var(--font-ui);
+      overflow-x: hidden;
+    }
+    @media (pointer: fine) { body { cursor: pointer; } }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      position: fixed; width: 12px; height: 12px;
+      background: #1a6fd4; border-radius: 50%;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s, width 0.3s, height 0.3s, opacity 0.3s;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      position: fixed; width: 36px; height: 36px;
+      border: 1.5px solid #1a6fd4; border-radius: 50%;
+      pointer-events: none; z-index: 99998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.18s ease, width 0.3s, height 0.3s, opacity 0.3s;
+      opacity: 0.6;
+    }
+    body:hover .cursor { opacity: 1; }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: #1a6fd4; border-radius: 2px; }
+
+    /* LOADER */
+    #loader {
+      position: fixed; inset: 0; background: #1a6fd4;
+      z-index: 9999; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s;
+      animation: autoHideLoader 0.1s ease 1.5s forwards;
+    }
+    @keyframes autoHideLoader { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+    #loader.hide { opacity: 0; visibility: hidden; }
+    .loader-text {
+      font-family: var(--font-display); font-size: clamp(2rem, 8vw, 5rem);
+      color: #ffffff; letter-spacing: 0.3em; font-weight: 300;
+      animation: loaderPulse 1.5s ease-in-out infinite;
+    }
+    .loader-bar {
+      width: 200px; height: 1px; background: var(--dark4);
+      margin-top: 24px; overflow: hidden;
+    }
+    .loader-fill {
+      height: 100%; background: #1a6fd4;
+      animation: loaderFill 2s ease forwards;
+    }
+    @keyframes loaderPulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+    @keyframes loaderFill { 0%{width:0} 100%{width:100%} }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 20px 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background 0.5s, padding 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(20px);
+      padding: 12px 5%;
+      border-bottom: 1px solid rgba(26,111,212,0.15);
+    }
+    .nav-logo {
+      font-family: var(--font-display); font-size: 1.6rem;
+      color: #1a6fd4; letter-spacing: 0.15em; font-weight: 600;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--white); font-weight: 300; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      color: var(--white); text-decoration: none;
+      font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+      opacity: 0.8; transition: opacity 0.3s, color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 1px; background: #1a6fd4;
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { opacity: 1; color: #1a6fd4; }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: transparent; border: 1px solid #1a6fd4;
+      color: #1a6fd4; padding: 10px 24px;
+      font-family: var(--font-ui); font-size: 0.75rem;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s;
+    }
+    .nav-cta:hover { background: #1a6fd4; color: #fff; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+    }
+    .hamburger span {
+      width: 24px; height: 2px; background: #1a6fd4; transition: all 0.3s; border-radius: 2px;
+    }
+
+    /* HERO */
+    #hero {
+      position: relative; height: 100vh; overflow: hidden;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, #0a1628 0%, #1a3a7a 50%, #0f2456 100%);
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=1600&h=900&fit=crop&crop=center') center/cover no-repeat;
+      opacity: 0.15; z-index: 0;
+    }
+    #hero-canvas {
+      position: absolute; inset: 0; z-index: 1;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 8%;
+      max-width: 700px;
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: #5ba3f5; margin-bottom: 24px;
+      display: flex; align-items: center; gap: 16px;
+      opacity: 0; animation: fadeUp 0.8s ease 0.5s forwards;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 40px; height: 1px; background: #5ba3f5;
+    }
+    .hero-title {
+      font-family: var(--font-display); font-size: clamp(3.5rem, 9vw, 8rem);
+      line-height: 0.95; font-weight: 300; margin-bottom: 28px;
+      opacity: 0; animation: fadeUp 0.8s ease 0.7s forwards;
+    }
+    .hero-title em { color: #5ba3f5; font-style: italic; }
+    .hero-desc {
+      font-size: 0.9rem; line-height: 1.8; color: rgba(255,255,255,0.75);
+      max-width: 420px; margin-bottom: 48px;
+      opacity: 0; animation: fadeUp 0.8s ease 0.9s forwards;
+    }
+    .hero-btns {
+      display: flex; gap: 20px; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s ease 1.1s forwards;
+    }
+    .btn-primary {
+      background: #1a6fd4; color: #fff;
+      padding: 16px 40px; font-family: var(--font-ui);
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      border: none; cursor: pointer; transition: all 0.3s;
+      text-decoration: none; display: inline-block;
+      font-weight: 600;
+    }
+    .btn-primary:hover { background: #5ba3f5; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent; color: var(--white);
+      padding: 16px 40px; font-family: var(--font-ui);
+      font-size: 0.78rem; letter-spacing: 0.15em; text-transform: uppercase;
+      border: 1px solid rgba(245,240,232,0.3); cursor: pointer; transition: all 0.3s;
+      text-decoration: none; display: inline-block;
+    }
+    .btn-outline:hover { border-color: #1a6fd4; color: #1a6fd4; }
+    .hero-scroll {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      opacity: 0; animation: fadeUp 0.8s ease 1.3s forwards;
+    }
+    .hero-scroll span {
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(245,240,232,0.4);
+    }
+    .scroll-line {
+      width: 1px; height: 50px; background: linear-gradient(to bottom, #1a6fd4, transparent);
+      animation: scrollAnim 2s ease infinite;
+    }
+    @keyframes scrollAnim { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+    .hero-stats {
+      position: absolute; right: 8%; bottom: 10%; z-index: 2;
+      display: flex; flex-direction: column; gap: 32px;
+      opacity: 0; animation: fadeUp 0.8s ease 1.2s forwards;
+    }
+    .stat { text-align: right; }
+    .stat-num { font-family: var(--font-display); font-size: 2.5rem; color: #1a6fd4; line-height: 1; }
+    .stat-label { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,240,232,0.4); margin-top: 4px; }
+
+    @keyframes fadeUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+
+    /* MARQUEE */
+    .marquee-section {
+      padding: 20px 0; background: #1a6fd4;
+      overflow: hidden; position: relative;
+    }
+    .marquee-track {
+      display: flex; gap: 0;
+      animation: marqueeScroll 20s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-item {
+      color: #ffffff; font-size: 0.75rem; letter-spacing: 0.25em;
+      text-transform: uppercase; padding: 0 40px; font-weight: 600;
+      flex-shrink: 0;
+    }
+    .marquee-dot { color: rgba(255,255,255,0.5); margin: 0 8px; }
+    @keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* SECTION COMMONS */
+    section { padding: 120px 8%; }
+    .section-tag {
+      font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: #1a6fd4; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .section-tag::before { content: ''; width: 30px; height: 1px; background: #1a6fd4; }
+    .section-title {
+      font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 300; line-height: 1.05; margin-bottom: 20px;
+    }
+    .section-title em { color: #1a6fd4; font-style: italic; }
+    .section-desc {
+      font-size: 0.9rem; line-height: 1.8; color: rgba(245,240,232,0.5);
+      max-width: 480px;
+    }
+
+    /* CATEGORIES */
+    #categories { background: #f0f4ff; }
+    .categories-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+      margin-top: 60px;
+    }
+    .cat-card {
+      position: relative; overflow: hidden;
+      aspect-ratio: 3/4; cursor: pointer;
+      background: var(--dark3);
+    }
+    .cat-card:first-child { grid-row: span 2; aspect-ratio: auto; }
+    .cat-bg {
+      position: absolute; inset: 0;
+      transition: transform 0.6s ease;
+      background-size: cover !important;
+      background-position: center !important;
+    }
+    .cat-card:hover .cat-bg { transform: scale(1.08); }
+    .cat-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(5,5,5,0.9) 0%, transparent 50%);
+    }
+    .cat-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px 24px;
+    }
+    .cat-name {
+      font-family: var(--font-display); font-size: 1.6rem; font-weight: 400;
+      margin-bottom: 4px;
+    }
+    .cat-count { font-size: 0.72rem; letter-spacing: 0.2em; color: #5ba3f5; }
+    .cat-arrow {
+      position: absolute; top: 24px; right: 24px;
+      width: 40px; height: 40px; border: 1px solid rgba(245,240,232,0.2);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+    }
+    .cat-card:hover .cat-arrow { background: #1a6fd4; border-color: #1a6fd4; }
+    .cat-arrow svg { width: 16px; height: 16px; stroke: var(--white); }
+    .cat-card:hover .cat-arrow svg { stroke: var(--dark); }
+
+    /* Category visual backgrounds using CSS */
+    .cat-sunglasses .cat-bg { background: url('https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&h=800&fit=crop&crop=center') center/cover no-repeat; }
+    .cat-eyeglasses .cat-bg { background: url('https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=600&h=400&fit=crop&crop=center') center/cover no-repeat; }
+    .cat-sports .cat-bg { background: url('https://images.unsplash.com/photo-1508296695146-257a814070b4?w=600&h=400&fit=crop&crop=center') center/cover no-repeat; }
+    .cat-kids .cat-bg { background: url('https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=600&h=400&fit=crop&crop=center') center/cover no-repeat; }
+    .cat-contact .cat-bg { background: url('https://images.unsplash.com/photo-1587802263786-e07e2fa7fddb?w=600&h=400&fit=crop&crop=center') center/cover no-repeat; }
+    .cat-accessories .cat-bg { background: url('https://images.unsplash.com/photo-1519455953755-af066f52f1a6?w=600&h=400&fit=crop&crop=center') center/cover no-repeat; }
+
+    /* PRODUCTS */
+    #products { position: relative; background: #fff; }
+    .products-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 60px; flex-wrap: wrap; gap: 24px;
+    }
+    .products-filter {
+      display: flex; gap: 4px;
+    }
+    .filter-btn {
+      background: transparent; border: 1px solid rgba(26,111,212,0.2);
+      color: rgba(10,22,40,0.5); padding: 8px 20px;
+      font-family: var(--font-ui); font-size: 0.72rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      cursor: pointer; transition: all 0.3s;
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: #1a6fd4; border-color: #1a6fd4;
+      color: #fff;
+    }
+    .products-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    }
+    .product-card {
+      background: var(--dark2); cursor: pointer;
+      transition: transform 0.4s ease; position: relative;
+      overflow: hidden;
+    }
+    .product-card:hover { transform: translateY(-8px); }
+    .product-img {
+      aspect-ratio: 4/3; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; background: #e8eeff;
+    }
+    .product-img img { transition: transform 0.5s ease; }
+    .product-card:hover .product-img img { transform: scale(1.08); }
+    .product-badge {
+      position: absolute; top: 16px; left: 16px;
+      background: #1a6fd4; color: #fff;
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 10px; font-weight: 700;
+    }
+    .product-badge.new { background: var(--white); }
+    .product-actions {
+      position: absolute; top: 16px; right: 16px;
+      display: flex; flex-direction: column; gap: 8px;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .product-card:hover .product-actions { opacity: 1; }
+    .action-btn {
+      width: 36px; height: 36px; background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.3s;
+    }
+    .action-btn:hover { background: #1a6fd4; border-color: #1a6fd4; }
+    .action-btn svg { width: 16px; height: 16px; stroke: #0a1628; }
+    .action-btn:hover svg { stroke: #fff; }
+    .product-info { padding: 20px; }
+    .product-brand { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: #1a6fd4; margin-bottom: 6px; }
+    .product-name { font-family: var(--font-display); font-size: 1.15rem; margin-bottom: 8px; color: #0a1628; }
+    .product-meta { display: flex; justify-content: space-between; align-items: center; }
+    .product-price { font-size: 1rem; color: #1a6fd4; font-weight: 600; }
+    .product-price .old { text-decoration: line-through; color: var(--grey); font-size: 0.8rem; margin-right: 8px; font-weight: 400; }
+    .product-colors { display: flex; gap: 6px; }
+    .color-dot { width: 12px; height: 12px; border-radius: 50%; border: 1.5px solid rgba(245,240,232,0.2); }
+
+    /* 3D CANVAS SECTION */
+    #showcase {
+      position: relative; height: 100vh; overflow: hidden;
+      display: flex; align-items: center;
+      background: linear-gradient(135deg, #0a1628, #1a3a7a);
+    }
+    #showcase-canvas { position: absolute; inset: 0; z-index: 1; }
+    .showcase-content {
+      position: relative; z-index: 2;
+      padding: 0 8%; max-width: 500px; margin-left: auto; color: #fff;
+    }
+    .showcase-content .section-title { font-size: clamp(2rem, 5vw, 4rem); }
+
+    /* TRY-ON */
+    #tryon { background: #f0f4ff; text-align: center; }
+    .tryon-inner { max-width: 800px; margin: 0 auto; }
+    .tryon-phone {
+      width: 260px; height: 480px; background: var(--dark3);
+      border: 2px solid var(--dark4); border-radius: 36px;
+      margin: 60px auto 0; position: relative; overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+    }
+    .tryon-screen {
+      width: 100%; height: 100%;
+      background: radial-gradient(ellipse at center, #1a3a7a 0%, #0f2456 70%);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+    }
+    .tryon-face { font-size: 8rem; line-height: 1; }
+    .tryon-label {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: #1a6fd4; margin-top: 16px;
+      animation: pulse 2s ease infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+    .tryon-notch {
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 80px; height: 24px; background: var(--dark);
+      border-radius: 0 0 16px 16px;
+    }
+
+    /* BRANDS */
+    #brands { padding: 80px 8%; background: #fff; }
+    .brands-grid {
+      display: grid; grid-template-columns: repeat(6, 1fr); gap: 2px;
+      margin-top: 48px;
+    }
+    .brand-item {
+      border: 1px solid rgba(26,111,212,0.1);
+      padding: 32px 20px; text-align: center;
+      font-family: var(--font-display); font-size: 1.2rem;
+      color: rgba(245,240,232,0.25); letter-spacing: 0.1em;
+      transition: all 0.3s; cursor: pointer;
+    }
+    .brand-item:hover { border-color: #1a6fd4; color: #1a6fd4; background: rgba(26,111,212,0.05); }
+
+    /* WHY US */
+    #why { background: #e8eeff; }
+    .why-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px;
+      margin-top: 64px;
+    }
+    .why-item { text-align: center; }
+    .why-icon {
+      width: 64px; height: 64px; border: 1px solid #0f4fa8;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px; font-size: 1.5rem;
+      background: rgba(26,111,212,0.1);
+    }
+    .why-title { font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 12px; color: #0a1628; }
+    .why-desc { font-size: 0.82rem; line-height: 1.7; color: rgba(245,240,232,0.5); }
+
+    /* TESTIMONIALS */
+    #testimonials { overflow: hidden; background: #f0f4ff; }
+    .testimonials-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 60px;
+    }
+    .test-nav { display: flex; gap: 8px; }
+    .test-btn {
+      width: 48px; height: 48px; border: 1px solid rgba(26,111,212,0.2);
+      background: transparent; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.3s;
+    }
+    .test-btn:hover { border-color: #1a6fd4; background: #1a6fd4; }
+    .test-btn:hover svg { stroke: var(--dark); }
+    .test-btn svg { width: 20px; height: 20px; stroke: #0a1628; }
+    .testimonials-track {
+      display: flex; gap: 24px; transition: transform 0.5s ease;
+    }
+    .test-card {
+      flex: 0 0 calc(33.333% - 16px); background: #fff; border: 1px solid #e8eeff;
+      padding: 40px; position: relative;
+    }
+    .test-quote {
+      font-family: var(--font-display); font-size: 4rem; color: #1a6fd4;
+      line-height: 0.5; margin-bottom: 24px; opacity: 0.4;
+    }
+    .test-text {
+      font-family: var(--font-display); font-size: 1.1rem; line-height: 1.8;
+      color: rgba(10,22,40,0.75); margin-bottom: 28px; font-style: italic;
+    }
+    .test-author { display: flex; align-items: center; gap: 16px; }
+    .test-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--dark4); display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; border: 2px solid #0f4fa8;
+    }
+    .test-name { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; color: #0a1628; }
+    .test-role { font-size: 0.72rem; color: #1a6fd4; letter-spacing: 0.1em; }
+    .test-stars { color: #1a6fd4; font-size: 0.8rem; margin-bottom: 8px; }
+
+    /* OFFER BANNER */
+    #offer {
+      padding: 80px 8%; background: linear-gradient(135deg, #1a6fd4, #0f4fa8);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 32px;
+    }
+    .offer-text .offer-tag {
+      font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: rgba(255,255,255,0.7); margin-bottom: 12px;
+    }
+    .offer-title {
+      font-family: var(--font-display); font-size: clamp(2rem, 5vw, 3.5rem);
+      color: #fff; font-weight: 600; line-height: 1.1;
+    }
+    .offer-desc { color: rgba(255,255,255,0.75); margin-top: 12px; font-size: 0.88rem; }
+    .btn-dark {
+      background: #fff; color: #0a1628;
+      padding: 18px 48px; font-family: var(--font-ui);
+      font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase;
+      border: none; cursor: pointer; transition: all 0.3s;
+      text-decoration: none; display: inline-block; white-space: nowrap;
+    }
+    .btn-dark:hover { background: var(--dark2); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      background: #0a1628; padding: 80px 8% 40px;
+      border-top: 1px solid rgba(26,111,212,0.2);
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px;
+      margin-bottom: 60px;
+    }
+    .footer-brand .nav-logo { display: block; margin-bottom: 20px; font-size: 1.8rem; color: #5ba3f5; }
+    .footer-desc {
+      font-size: 0.83rem; line-height: 1.8; color: rgba(255,255,255,0.5); margin-bottom: 28px;
+    }
+    .footer-social { display: flex; gap: 12px; }
+    .social-link {
+      width: 36px; height: 36px; border: 1px solid rgba(245,240,232,0.1);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.7rem;
+      transition: all 0.3s; cursor: pointer;
+    }
+    .social-link:hover { border-color: #1a6fd4; color: #1a6fd4; }
+    .footer-col h4 {
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: #5ba3f5; margin-bottom: 24px;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 12px; }
+    .footer-links a {
+      color: rgba(255,255,255,0.55); text-decoration: none; font-size: 0.85rem;
+      transition: color 0.3s; cursor: pointer;
+    }
+    .footer-links a:hover { color: #fff; }
+    .footer-bottom {
+      padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-copy {
+      font-size: 0.75rem; color: rgba(255,255,255,0.3); letter-spacing: 0.05em;
+    }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a {
+      font-size: 0.72rem; color: rgba(255,255,255,0.3);
+      text-decoration: none; transition: color 0.3s; cursor: pointer;
+    }
+    .footer-legal a:hover { color: #5ba3f5; }
+
+    /* NEWSLETTER */
+    .newsletter { margin-top: 24px; }
+    .newsletter-form { display: flex; gap: 0; }
+    .newsletter-input {
+      flex: 1; background: var(--dark3); border: 1px solid rgba(245,240,232,0.1);
+      border-right: none; padding: 12px 16px; color: var(--white);
+      font-family: var(--font-ui); font-size: 0.82rem; outline: none;
+    }
+    .newsletter-input::placeholder { color: rgba(245,240,232,0.25); }
+    .newsletter-btn {
+      background: #1a6fd4; border: none; padding: 12px 20px;
+      color: var(--dark); cursor: pointer; font-size: 0.7rem;
+      letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;
+      transition: background 0.3s;
+    }
+    .newsletter-btn:hover { background: #5ba3f5; }
+
+    /* ANIMATIONS */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE NAV */
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: #fff; padding: 100px 8% 40px;
+      flex-direction: column; gap: 32px;
+      box-shadow: 0 0 40px rgba(26,111,212,0.15);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-display); font-size: 2.5rem; color: #0a1628;
+      text-decoration: none; border-bottom: 1px solid rgba(26,111,212,0.15); padding-bottom: 24px;
+      transition: color 0.3s;
+    }
+    .mobile-menu a:hover { color: #1a6fd4; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1200px) {
+      .products-grid { grid-template-columns: repeat(3, 1fr); }
+      .categories-grid { grid-template-columns: repeat(3, 1fr); }
+      .categories-grid .cat-card:first-child { grid-column: span 1; grid-row: span 1; aspect-ratio: 3/4; }
+      .brands-grid { grid-template-columns: repeat(4, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .test-card { flex: 0 0 calc(50% - 12px); }
+      .brands-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .hero-stats { display: none; }
+      .products-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .categories-grid { grid-template-columns: 1fr 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; gap: 40px; }
+      .test-card { flex: 0 0 calc(85% - 12px); }
+      section { padding: 80px 5%; }
+      .brands-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-text">EYE SHADES</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">EYE <span>SHADES</span></a>
+  <ul class="nav-links">
+    <li><a href="#categories">Collection</a></li>
+    <li><a href="#products">Shop</a></li>
+    <li><a href="#tryon">Try-On</a></li>
+    <li><a href="#brands">Brands</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#offer">Offers</a></li>
+  </ul>
+  <a href="https://wa.me/918828245787?text=Hello%20Eye%20Shades!%20%F0%9F%91%8B%0A%0AI%20want%20to%20*book%20a%20free%20eye%20test*.%0APlease%20share%20available%20slots.%20Thank%20you!%20%F0%9F%99%8F" target="_blank" class="nav-cta">Book Eye Test</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button onclick="toggleMenu()" style="position:absolute;top:24px;right:24px;background:none;border:none;font-size:2rem;color:#1a6fd4;cursor:pointer;line-height:1">✕</button>
+  <a href="#categories" onclick="toggleMenu()">Collection</a>
+  <a href="#products" onclick="toggleMenu()">Shop</a>
+  <a href="#tryon" onclick="toggleMenu()">Try-On</a>
+  <a href="#brands" onclick="toggleMenu()">Brands</a>
+  <a href="#testimonials" onclick="toggleMenu()">Reviews</a>
+  <a href="#offer" onclick="toggleMenu()">Offers</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Mumbai's Premium Eyewear</p>
+    <h1 class="hero-title">See The<br/><em>World</em><br/>Clearly</h1>
+    <p class="hero-desc">Handpicked frames from the world's finest brands. Expert eye care, perfect fit, and style that speaks for itself.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">Shop Now</a>
+      <a href="#tryon" class="btn-outline">Virtual Try-On</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">5000+</div><div class="stat-label">Happy Customers</div></div>
+    <div class="stat"><div class="stat-num">200+</div><div class="stat-label">Frame Styles</div></div>
+    <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Premium Brands</div></div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee">
+    <span class="marquee-item">Premium Eyewear <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Expert Eye Care <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">500+ Frame Styles <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Same Day Service <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Anti-Glare Lenses <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Home Delivery Mumbai <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Premium Eyewear <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Expert Eye Care <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">500+ Frame Styles <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Same Day Service <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Anti-Glare Lenses <span class="marquee-dot">◆</span></span>
+    <span class="marquee-item">Home Delivery Mumbai <span class="marquee-dot">◆</span></span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section id="categories">
+  <div class="section-tag">Browse by Category</div>
+  <h2 class="section-title reveal">Find Your <em>Perfect</em> Style</h2>
+  <p class="section-desc reveal">From classic frames to bold fashion statements — we have it all.</p>
+  <div class="categories-grid reveal">
+    <div class="cat-card cat-sunglasses">
+      <div class="cat-bg"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
+      <div class="cat-info"><div class="cat-name">Sunglasses</div><div class="cat-count">120+ Styles</div></div>
+    </div>
+    <div class="cat-card cat-eyeglasses">
+      <div class="cat-bg"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
+      <div class="cat-info"><div class="cat-name">Eyeglasses</div><div class="cat-count">200+ Frames</div></div>
+    </div>
+    <div class="cat-card cat-sports">
+      <div class="cat-bg"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
+      <div class="cat-info"><div class="cat-name">Sports</div><div class="cat-count">45+ Models</div></div>
+    </div>
+    <div class="cat-card cat-kids">
+      <div class="cat-bg"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
+      <div class="cat-info"><div class="cat-name">Kids</div><div class="cat-count">60+ Frames</div></div>
+    </div>
+    <div class="cat-card cat-contact">
+      <div class="cat-bg"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
+      <div class="cat-info"><div class="cat-name">Contact Lenses</div><div class="cat-count">30+ Types</div></div>
+    </div>
+    <div class="cat-card cat-accessories">
+      <div class="cat-bg"></div>
+      <div class="cat-overlay"></div>
+      <div class="cat-arrow"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></div>
+      <div class="cat-info"><div class="cat-name">Accessories</div><div class="cat-count">80+ Items</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3D SHOWCASE -->
+<section id="showcase">
+  <canvas id="showcase-canvas"></canvas>
+  <div class="showcase-content">
+    <div class="section-tag">3D Experience</div>
+    <h2 class="section-title reveal">Crafted for <em>Perfection</em></h2>
+    <p class="section-desc reveal" style="margin-bottom:40px">Every frame in our collection is precision-crafted from premium materials. Lightweight, durable, and designed to last a lifetime.</p>
+    <div class="reveal">
+      <a href="#products" class="btn-primary">Explore Collection</a>
+    </div>
+    <div style="display:flex;gap:40px;margin-top:48px">
+      <div class="reveal"><div style="font-family:var(--font-display);font-size:2rem;color:#1a6fd4">Titanium</div><div style="font-size:0.72rem;letter-spacing:0.15em;color:rgba(245,240,232,0.4);text-transform:uppercase">Frames</div></div>
+      <div class="reveal"><div style="font-family:var(--font-display);font-size:2rem;color:#1a6fd4">HD Optics</div><div style="font-size:0.72rem;letter-spacing:0.15em;color:rgba(245,240,232,0.4);text-transform:uppercase">Lenses</div></div>
+      <div class="reveal"><div style="font-family:var(--font-display);font-size:2rem;color:#1a6fd4">1 Year</div><div style="font-size:0.72rem;letter-spacing:0.15em;color:rgba(245,240,232,0.4);text-transform:uppercase">Warranty</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="products-header">
+    <div>
+      <div class="section-tag reveal">Featured Products</div>
+      <h2 class="section-title reveal">Best <em>Sellers</em></h2>
+    </div>
+    <div class="products-filter reveal">
+      <button class="filter-btn active" onclick="filterProducts(this,'all')">All</button>
+      <button class="filter-btn" onclick="filterProducts(this,'sunglass')">Sunglasses</button>
+      <button class="filter-btn" onclick="filterProducts(this,'eyeglass')">Eyeglasses</button>
+      <button class="filter-btn" onclick="filterProducts(this,'sports')">Sports</button>
+    </div>
+  </div>
+  <div class="products-grid reveal" id="productsGrid">
+    <!-- Products injected by JS -->
+  </div>
+  <div style="text-align:center;margin-top:48px" class="reveal">
+    <a href="#" class="btn-outline" onclick="alert('Full catalogue coming soon! Visit us in store.')">View All Products</a>
+  </div>
+</section>
+
+<!-- TRY-ON -->
+<section id="tryon">
+  <div class="tryon-inner">
+    <div class="section-tag reveal" style="justify-content:center">Virtual Try-On</div>
+    <h2 class="section-title reveal">Try Before <em>You Buy</em></h2>
+    <p class="section-desc reveal" style="margin:0 auto 0;text-align:center">Use our AR-powered virtual try-on to see exactly how any frame looks on your face — instantly, from anywhere.</p>
+    <div class="tryon-phone reveal">
+      <div class="tryon-notch"></div>
+      <div class="tryon-screen">
+        <img src="https://images.unsplash.com/photo-1509695507497-903c140c43b0?w=220&h=280&fit=crop&crop=face" style="width:100%;height:220px;object-fit:cover;border-radius:8px;opacity:0.9" loading="lazy" onerror="this.outerHTML='<div style=\"font-size:6rem\">😎</div>'"/>
+        <div class="tryon-label">AR Try-On Active</div>
+      </div>
+    </div>
+    <div style="margin-top:40px" class="reveal">
+      <a href="https://wa.me/918828245787?text=Hello%20Eye%20Shades!%20%F0%9F%91%8B%0A%0AI%20want%20to%20*try%20on%20frames%20virtually*.%0ACan%20you%20help%20me%3F%20Thank%20you!%20%F0%9F%99%8F" target="_blank" class="btn-primary">Launch AR Try-On</a>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section id="brands">
+  <div class="section-tag reveal">Our Partners</div>
+  <h2 class="section-title reveal">Top <em>Brands</em></h2>
+  <div class="brands-grid reveal">
+    <div class="brand-item">RAY-BAN</div>
+    <div class="brand-item">OAKLEY</div>
+    <div class="brand-item">GUCCI</div>
+    <div class="brand-item">PRADA</div>
+    <div class="brand-item">VOGUE</div>
+    <div class="brand-item">CARRERA</div>
+    <div class="brand-item">POLAROID</div>
+    <div class="brand-item">FASTRACK</div>
+    <div class="brand-item">TITAN</div>
+    <div class="brand-item">VINCENT CHASE</div>
+    <div class="brand-item">JOHN JACOBS</div>
+    <div class="brand-item">IDENTITY</div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section id="why">
+  <div class="section-tag reveal">Why Eye Shades</div>
+  <h2 class="section-title reveal">The <em>Difference</em></h2>
+  <div class="why-grid">
+    <div class="why-item reveal">
+      <div class="why-icon">👁️</div>
+      <div class="why-title">Free Eye Test</div>
+      <div class="why-desc">Comprehensive eye examination by certified optometrists. Walk in anytime, no appointment needed.</div>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-icon">🚚</div>
+      <div class="why-title">Same Day Delivery</div>
+      <div class="why-desc">Order before 2 PM and receive your new glasses the same day within Mumbai city limits.</div>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-icon">🛡️</div>
+      <div class="why-title">1 Year Warranty</div>
+      <div class="why-desc">Every frame and lens comes with a full 1-year manufacturer warranty. Your investment protected.</div>
+    </div>
+    <div class="why-item reveal">
+      <div class="why-icon">↩️</div>
+      <div class="why-title">Easy Returns</div>
+      <div class="why-desc">Not happy? Return within 7 days, no questions asked. Your satisfaction is our priority.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header">
+    <div>
+      <div class="section-tag reveal">Customer Stories</div>
+      <h2 class="section-title reveal">What They <em>Say</em></h2>
+    </div>
+    <div class="test-nav reveal">
+      <button class="test-btn" id="testPrev" onclick="slideTest(-1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M15 19l-7-7 7-7"/></svg>
+      </button>
+      <button class="test-btn" id="testNext" onclick="slideTest(1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </div>
+  <div style="overflow:hidden">
+    <div class="testimonials-track" id="testTrack">
+      <div class="test-card reveal">
+        <div class="test-quote">"</div>
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">Best eyewear shop in Mumbai! Got my Ray-Ban sunglasses fitted with prescription lenses. Quality is top-notch and the staff is super helpful.</div>
+        <div class="test-author">
+          <div class="test-avatar">👩</div>
+          <div><div class="test-name">Priya Sharma</div><div class="test-role">Bandra, Mumbai</div></div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-quote">"</div>
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">Same day delivery is a game changer! Ordered my glasses at noon and received them by evening. Frames are solid and lenses are crystal clear.</div>
+        <div class="test-author">
+          <div class="test-avatar">👨</div>
+          <div><div class="test-name">Rahul Mehta</div><div class="test-role">Andheri, Mumbai</div></div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-quote">"</div>
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">Free eye test and they helped me pick the perfect frames for my face shape. Finally found glasses I love! Will definitely come back.</div>
+        <div class="test-author">
+          <div class="test-avatar">👩</div>
+          <div><div class="test-name">Sneha Patil</div><div class="test-role">Dadar, Mumbai</div></div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-quote">"</div>
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">Bought sports eyewear for cricket. The anti-glare coating is excellent. Even in bright sunlight, vision is sharp. Very happy with the purchase.</div>
+        <div class="test-author">
+          <div class="test-avatar">👨</div>
+          <div><div class="test-name">Arjun Nair</div><div class="test-role">Powai, Mumbai</div></div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-quote">"</div>
+        <div class="test-stars">★★★★★</div>
+        <div class="test-text">Bought my daughter's first pair of glasses here. They were so patient with her and the frames are super durable. Great kids collection!</div>
+        <div class="test-author">
+          <div class="test-avatar">👩</div>
+          <div><div class="test-name">Meera Joshi</div><div class="test-role">Thane, Mumbai</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER BANNER -->
+<section id="offer">
+  <div class="offer-text">
+    <div class="offer-tag">Limited Time</div>
+    <div class="offer-title">Buy 2 Get 1<br/>Absolutely Free</div>
+    <div class="offer-desc">On all frames above ₹2,000 — valid this month only!</div>
+  </div>
+  <a href="https://wa.me/918828245787?text=Hello%20Eye%20Shades!%20%F0%9F%91%8B%0A%0AI%20want%20to%20claim%20the%20*Buy%202%20Get%201%20Free*%20offer!%0A%0APlease%20guide%20me.%20Thank%20you!%20%F0%9F%99%8F" target="_blank" class="btn-dark">Claim Offer on WhatsApp</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">EYE <span>SHADES</span></a>
+      <p class="footer-desc">Mumbai's trusted eyewear destination since 2008. Premium frames, expert care, and unmatched style — all under one roof.
+<br/><br/>📍 Andheri Sakinaka Pipeline, Opposite Shubhangi Medical, Mumbai 400072</p>
+      <div class="footer-social">
+        <a href="#" class="social-link">f</a>
+        <a href="#" class="social-link">in</a>
+        <a href="#" class="social-link">tw</a>
+        <a href="#" class="social-link">ig</a>
+        <a href="https://wa.me/918828245787?text=Hello%20Eye%20Shades!" target="_blank" class="social-link">wa</a>
+      </div>
+      <div class="newsletter" style="margin-top:28px">
+        <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:#1a6fd4;margin-bottom:12px">Newsletter</div>
+        <div class="newsletter-form">
+          <input class="newsletter-input" type="email" placeholder="Your email address"/>
+          <button class="newsletter-btn">→</button>
+        </div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Collection</h4>
+      <ul class="footer-links">
+        <li><a href="#">Sunglasses</a></li>
+        <li><a href="#">Eyeglasses</a></li>
+        <li><a href="#">Sports Frames</a></li>
+        <li><a href="#">Kids Eyewear</a></li>
+        <li><a href="#">Contact Lenses</a></li>
+        <li><a href="#">Accessories</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul class="footer-links">
+        <li><a href="#">Free Eye Test</a></li>
+        <li><a href="#">Frame Repairs</a></li>
+        <li><a href="#">Lens Replacement</a></li>
+        <li><a href="#">Home Delivery</a></li>
+        <li><a href="#">Virtual Try-On</a></li>
+        <li><a href="#">WhatsApp Order</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul class="footer-links">
+        <li><a href="https://maps.app.goo.gl/Z6Y311cFDj5ypCRr6" target="_blank">📍 Sakinaka Pipeline, Andheri</a></li>
+        <li><a href="#" style="font-size:0.78rem;color:rgba(245,240,232,0.3);line-height:1.6;pointer-events:none">Opp. Shubhangi Medical,<br/>Mumbai – 400072</a></li>
+        <li><a href="tel:+918828245787">📞 +91 88282 45787</a></li>
+        <li><a href="https://wa.me/918828245787?text=Hello%20Eye%20Shades!%20I%20have%20an%20enquiry." target="_blank">💬 WhatsApp Us</a></li>
+        <li><a href="mailto:eyeshades2023@gmail.com">✉️ eyeshades2023@gmail.com</a></li>
+        <li><a href="#">⏰ Mon–Sat: 10am–9pm</a></li>
+        <li><a href="#">⏰ Sun: 11am–7pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Eye Shades. All rights reserved. Made with ❤️ in Mumbai.</p>
+    <div class="footer-legal">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Refund Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ===================== CURSOR =====================
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px'; cursor.style.top = mouseY + 'px';
+});
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a, button, .cat-card, .product-card, .brand-item').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.transform='translate(-50%,-50%) scale(2)'; ring.style.transform='translate(-50%,-50%) scale(1.5)'; });
+  el.addEventListener('mouseleave', () => { cursor.style.transform='translate(-50%,-50%) scale(1)'; ring.style.transform='translate(-50%,-50%) scale(1)'; });
+});
+
+// ===================== LOADER =====================
+function hideLoader() {
+  const loader = document.getElementById('loader');
+  if (loader) loader.classList.add('hide');
+}
+// Hide loader immediately - no blocking
+hideLoader();
+document.addEventListener("DOMContentLoaded", hideLoader);
+window.addEventListener("load", hideLoader);
+
+// ===================== NAV SCROLL =====================
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ===================== MOBILE MENU =====================
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const ham = document.getElementById('hamburger');
+  menu.classList.toggle('open');
+  ham.classList.toggle('active');
+}
+
+// ===================== SCROLL REVEAL =====================
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), e.target.dataset.delay || 0);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach((el, i) => {
+  el.dataset.delay = (i % 4) * 80;
+  revealObserver.observe(el);
+});
+
+// ===================== HERO THREE.JS =====================
+function initHeroThree() {
+  if (typeof THREE === 'undefined') return;
+  try {
+  const canvas = document.getElementById('hero-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+  camera.position.set(0, 0, 8);
+
+  // Particles
+  const particleCount = 1800;
+  const positions = new Float32Array(particleCount * 3);
+  const colors = new Float32Array(particleCount * 3);
+  for (let i = 0; i < particleCount; i++) {
+    const theta = Math.random() * Math.PI * 2;
+    const phi = Math.acos(2 * Math.random() - 1);
+    const r = 3 + Math.random() * 6;
+    positions[i*3]   = r * Math.sin(phi) * Math.cos(theta);
+    positions[i*3+1] = r * Math.sin(phi) * Math.sin(theta);
+    positions[i*3+2] = r * Math.cos(phi);
+    const t = Math.random();
+    colors[i*3]   = t < 0.4 ? 0.10 : 0.30;
+    colors[i*3+1] = t < 0.4 ? 0.44 : 0.60;
+    colors[i*3+2] = t < 0.4 ? 0.83 : 1.00;
+  }
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  pGeo.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+  const pMat = new THREE.PointsMaterial({ size: 0.04, vertexColors: true, transparent: true, opacity: 0.7 });
+  scene.add(new THREE.Points(pGeo, pMat));
+
+  // Floating torus (glasses ring)
+  const tGeo = new THREE.TorusGeometry(1.8, 0.04, 16, 100);
+  const tMat = new THREE.MeshBasicMaterial({ color: 0x1a6fd4, wireframe: false });
+  const torus = new THREE.Mesh(tGeo, tMat);
+  torus.position.set(3, 0, 0);
+  scene.add(torus);
+
+  const tGeo2 = new THREE.TorusGeometry(1.3, 0.03, 16, 100);
+  const tMat2 = new THREE.MeshBasicMaterial({ color: 0x5ba3f5, wireframe: false });
+  const torus2 = new THREE.Mesh(tGeo2, tMat2);
+  torus2.position.set(3.5, 1, -1);
+  scene.add(torus2);
+
+  // Icosahedron
+  const iGeo = new THREE.IcosahedronGeometry(1, 1);
+  const iMat = new THREE.MeshBasicMaterial({ color: 0x1a6fd4, wireframe: true });
+  const ico = new THREE.Mesh(iGeo, iMat);
+  ico.position.set(4, -1, 1);
+  scene.add(ico);
+
+  let mouseXN = 0, mouseYN = 0;
+  document.addEventListener('mousemove', e => {
+    mouseXN = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseYN = -(e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  function heroAnim() {
+    requestAnimationFrame(heroAnim);
+    const t = Date.now() * 0.001;
+    scene.rotation.y = mouseXN * 0.15;
+    scene.rotation.x = mouseYN * 0.08;
+    torus.rotation.x = t * 0.4;
+    torus.rotation.y = t * 0.3;
+    torus2.rotation.z = t * 0.5;
+    ico.rotation.x = t * 0.6;
+    ico.rotation.y = t * 0.4;
+    renderer.render(scene, camera);
+  }
+  heroAnim();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+  } catch(e) { console.warn('Hero 3D failed:', e); }
+}
+
+// ===================== SHOWCASE THREE.JS =====================
+function initShowcaseThree() {
+  if (typeof THREE === 'undefined') return;
+  try {
+  const canvas = document.getElementById('showcase-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  const section = document.getElementById('showcase');
+  renderer.setSize(section.offsetWidth, section.offsetHeight);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, section.offsetWidth / section.offsetHeight, 0.1, 100);
+  camera.position.z = 5;
+
+  // Main glasses-like shape using toruses
+  const frameGroup = new THREE.Group();
+
+  // Left lens frame
+  const lGeo = new THREE.TorusGeometry(0.7, 0.05, 16, 64);
+  const frameMat = new THREE.MeshBasicMaterial({ color: 0x1a6fd4 });
+  const leftLens = new THREE.Mesh(lGeo, frameMat);
+  leftLens.position.set(-0.9, 0, 0);
+  frameGroup.add(leftLens);
+
+  // Right lens frame
+  const rGeo = new THREE.TorusGeometry(0.7, 0.05, 16, 64);
+  const rightLens = new THREE.Mesh(rGeo, frameMat);
+  rightLens.position.set(0.9, 0, 0);
+  frameGroup.add(rightLens);
+
+  // Bridge
+  const bridgeGeo = new THREE.CylinderGeometry(0.025, 0.025, 0.4, 8);
+  const bridge = new THREE.Mesh(bridgeGeo, frameMat);
+  bridge.rotation.z = Math.PI / 2;
+  bridge.position.set(0, 0.3, 0);
+  frameGroup.add(bridge);
+
+  // Lens fills (transparent)
+  const lensMat = new THREE.MeshBasicMaterial({ color: 0x0a2040, transparent: true, opacity: 0.35, side: THREE.DoubleSide });
+  const leftFill = new THREE.Mesh(new THREE.CircleGeometry(0.65, 64), lensMat);
+  leftFill.position.set(-0.9, 0, -0.02);
+  frameGroup.add(leftFill);
+  const rightFill = new THREE.Mesh(new THREE.CircleGeometry(0.65, 64), lensMat);
+  rightFill.position.set(0.9, 0, -0.02);
+  frameGroup.add(rightFill);
+
+  // Arms
+  const armGeo = new THREE.CylinderGeometry(0.02, 0.02, 1.8, 8);
+  const leftArm = new THREE.Mesh(armGeo, frameMat);
+  leftArm.rotation.z = Math.PI / 2 + 0.2;
+  leftArm.position.set(-2.2, -0.3, -0.4);
+  frameGroup.add(leftArm);
+  const rightArm = new THREE.Mesh(armGeo.clone(), frameMat);
+  rightArm.rotation.z = -(Math.PI / 2 + 0.2);
+  rightArm.position.set(2.2, -0.3, -0.4);
+  frameGroup.add(rightArm);
+
+  scene.add(frameGroup);
+
+  // Orbiting particles
+  const oCount = 300;
+  const oPos = new Float32Array(oCount * 3);
+  for (let i = 0; i < oCount; i++) {
+    oPos[i*3]   = (Math.random()-0.5) * 10;
+    oPos[i*3+1] = (Math.random()-0.5) * 6;
+    oPos[i*3+2] = (Math.random()-0.5) * 8;
+  }
+  const oGeo = new THREE.BufferGeometry();
+  oGeo.setAttribute('position', new THREE.BufferAttribute(oPos, 3));
+  scene.add(new THREE.Points(oGeo, new THREE.PointsMaterial({ size: 0.025, color: 0x5ba3f5, transparent: true, opacity: 0.4 })));
+
+  let mx = 0, my = 0;
+  document.addEventListener('mousemove', e => {
+    mx = (e.clientX / window.innerWidth - 0.5);
+    my = (e.clientY / window.innerHeight - 0.5);
+  });
+
+  function showcaseAnim() {
+    requestAnimationFrame(showcaseAnim);
+    const t = Date.now() * 0.001;
+    frameGroup.rotation.y = Math.sin(t * 0.5) * 0.4 + mx * 0.3;
+    frameGroup.rotation.x = Math.cos(t * 0.3) * 0.15 + my * 0.2;
+    frameGroup.position.y = Math.sin(t * 0.7) * 0.15;
+    renderer.render(scene, camera);
+  }
+  showcaseAnim();
+
+  window.addEventListener('resize', () => {
+    const s = document.getElementById('showcase');
+    camera.aspect = s.offsetWidth / s.offsetHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(s.offsetWidth, s.offsetHeight);
+  });
+  } catch(e) { console.warn('Showcase 3D failed:', e); }
+}
+
+// ===================== PRODUCTS =====================
+const products = [
+  { id:1, name:'Aviator Classic', brand:'Ray-Ban', price:'₹5,499', old:'₹7,000',
+    img:'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=300&fit=crop&crop=center',
+    badge:'Sale', category:'sunglass', colors:['#c9a84c','#1a1a1a','#8B4513'] },
+  { id:2, name:'Wayfarer Elite', brand:'Ray-Ban', price:'₹6,299', old:'',
+    img:'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400&h=300&fit=crop&crop=center',
+    badge:'New', category:'sunglass', colors:['#1a1a1a','#8B0000','#2C4A6B'] },
+  { id:3, name:'Titanium Pro', brand:'John Jacobs', price:'₹4,299', old:'₹5,500',
+    img:'https://images.unsplash.com/photo-1574258495973-f010dfbb5371?w=400&h=300&fit=crop&crop=center',
+    badge:'Sale', category:'eyeglass', colors:['#C0C0C0','#1a6fd4','#1a1a1a'] },
+  { id:4, name:'Round Scholar', brand:'Vincent Chase', price:'₹3,199', old:'',
+    img:'https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=400&h=300&fit=crop&crop=center',
+    badge:'New', category:'eyeglass', colors:['#8B4513','#1a1a1a','#2C4A6B'] },
+  { id:5, name:'Velocity X', brand:'Oakley', price:'₹8,999', old:'₹11,000',
+    img:'https://images.unsplash.com/photo-1508296695146-257a814070b4?w=400&h=300&fit=crop&crop=center',
+    badge:'Sale', category:'sports', colors:['#FF4500','#1a1a1a','#00CED1'] },
+  { id:6, name:'Polarize Pro', brand:'Oakley', price:'₹7,499', old:'',
+    img:'https://images.unsplash.com/photo-1473496169904-658ba7574b0d?w=400&h=300&fit=crop&crop=center',
+    badge:'', category:'sports', colors:['#1a1a1a','#4169E1','#32CD32'] },
+  { id:7, name:'Rimless Clarity', brand:'Titan Eye+', price:'₹2,999', old:'₹3,800',
+    img:'https://images.unsplash.com/photo-1605170439002-90845e8c0137?w=400&h=300&fit=crop&crop=center',
+    badge:'Sale', category:'eyeglass', colors:['#C0C0C0','#FFD700','#C0C0C0'] },
+  { id:8, name:'Retro Square', brand:'Fastrack', price:'₹1,899', old:'',
+    img:'https://images.unsplash.com/photo-1556306535-0f09a537f0a3?w=400&h=300&fit=crop&crop=center',
+    badge:'New', category:'sunglass', colors:['#FF69B4','#1a6fd4','#8B0000'] },
+  { id:9, name:'Cat Eye Glam', brand:'Vogue', price:'₹3,499', old:'₹4,200',
+    img:'https://images.unsplash.com/photo-1509695507497-903c140c43b0?w=400&h=300&fit=crop&crop=center',
+    badge:'Sale', category:'sunglass', colors:['#000','#8B0000','#FFD700'] },
+  { id:10, name:'Blue Block Pro', brand:'John Jacobs', price:'₹2,499', old:'',
+    img:'https://images.unsplash.com/photo-1587802263786-e07e2fa7fddb?w=400&h=300&fit=crop&crop=center',
+    badge:'New', category:'eyeglass', colors:['#1a6fd4','#000','#C0C0C0'] },
+  { id:11, name:'Kids Fun Frame', brand:'Fastrack Jr', price:'₹1,299', old:'₹1,800',
+    img:'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop&crop=center',
+    badge:'Sale', category:'kids', colors:['#FF69B4','#FF4500','#32CD32'] },
+  { id:12, name:'Gold Rimless', brand:'Titan Eye+', price:'₹5,999', old:'',
+    img:'https://images.unsplash.com/photo-1519455953755-af066f52f1a6?w=400&h=300&fit=crop&crop=center',
+    badge:'New', category:'eyeglass', colors:['#FFD700','#C0C0C0','#1a1a1a'] },
+];
+
+function filterProducts(btn, cat) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(cat);
+}
+
+// ===================== WHATSAPP BUY FUNCTION =====================
+function buyOnWhatsApp(name, brand, price, emoji) {
+  const phone = '918828245787'; // your WhatsApp number
+  const msg = `Hello Eye Shades! 👋
+
+I want to order this product:
+
+${emoji} *${name}*
+🏷️ Brand: ${brand}
+💰 Price: ${price}
+
+Please confirm availability and share payment details.
+Thank you! 🙏`;
+  const url = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+  window.open(url, '_blank');
+}
+
+function renderProducts(filter='all') {
+  const grid = document.getElementById('productsGrid');
+  const list = filter === 'all' ? products : products.filter(p => p.category === filter);
+  grid.innerHTML = list.map(p => `
+    <div class="product-card">
+      <div class="product-img">
+        ${p.badge ? `<div class="product-badge ${p.badge==='New'?'new':''}">${p.badge}</div>` : ''}
+        <div class="product-actions">
+          <div class="action-btn" title="Enquire on WhatsApp" onclick="buyOnWhatsApp('${p.name}','${p.brand}','${p.price}','${p.emoji}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </div>
+          <div class="action-btn" title="Quick Buy on WhatsApp" onclick="buyOnWhatsApp('${p.name}','${p.brand}','${p.price}','${p.emoji}')">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+        </div>
+        <img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;transition:transform 0.5s ease;" onerror="this.style.display='none';this.parentNode.innerHTML+='<span style=\"font-size:4rem;position:absolute\">🕶️</span>'" loading="lazy"/>
+      </div>
+      <div class="product-info">
+        <div class="product-brand">${p.brand}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-meta">
+          <div class="product-price">${p.old?`<span class="old">${p.old}</span>`:''}${p.price}</div>
+          <div class="product-colors">${p.colors.map(c=>`<div class="color-dot" style="background:${c}"></div>`).join('')}</div>
+        </div>
+        <button
+          style="width:100%;margin-top:14px;padding:12px 10px;background:#25D366;border:none;color:#fff;font-family:var(--font-ui);font-size:0.75rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700"
+          onmouseover="this.style.background='#128C7E';this.style.transform='translateY(-2px)'"
+          onmouseout="this.style.background='#25D366';this.style.transform='translateY(0)'"
+          onclick="buyOnWhatsApp('${p.name}','${p.brand}','${p.price}','${p.emoji}')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Buy on WhatsApp
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+renderProducts();
+
+// ===================== TESTIMONIAL SLIDER =====================
+let testIndex = 0;
+function slideTest(dir) {
+  const track = document.getElementById('testTrack');
+  const cards = track.querySelectorAll('.test-card');
+  const perView = window.innerWidth > 900 ? 3 : window.innerWidth > 600 ? 2 : 1;
+  const max = cards.length - perView;
+  testIndex = Math.max(0, Math.min(testIndex + dir, max));
+  const pct = (100 / perView) * testIndex;
+  track.style.transform = `translateX(-${pct}%)`;
+}
+
+// ===================== WHATSAPP FLOAT =====================
+const waBtn = document.createElement('a');
+waBtn.href = 'https://wa.me/918828245787?text=Hello%20Eye%20Shades!%20%F0%9F%91%8B%0AI%20am%20interested%20in%20your%20eyewear.%0AAddress%3A%20Sakinaka%20Pipeline%2C%20Andheri%2C%20Mumbai%20400072';
+waBtn.target = '_blank';
+waBtn.style.cssText = 'position:fixed;bottom:28px;right:28px;z-index:999;width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,0.4);animation:waPulse 2s ease infinite;cursor:pointer';
+waBtn.innerHTML = '💬';
+waBtn.title = 'Chat on WhatsApp';
+const waStyle = document.createElement('style');
+waStyle.textContent = '@keyframes waPulse{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,0.4)}50%{box-shadow:0 4px 40px rgba(37,211,102,0.8)}}';
+document.head.appendChild(waStyle);
+document.body.appendChild(waBtn);
+
+// Load Three.js async - site works even without it
+(function() {
+  var s = document.createElement('script');
+  s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.min.js';
+  s.async = true;
+  s.onload = function() { initHeroThree(); initShowcaseThree(); };
+  s.onerror = function() { console.warn('Three.js CDN failed'); };
+  document.body.appendChild(s);
+})();
+</script>
+</body>
+</html>
